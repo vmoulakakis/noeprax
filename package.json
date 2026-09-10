@@ -1,0 +1,1 @@
+{"name":"noeprax-agentic-business-platform","version":"0.1.0","private":true,"type":"module","scripts":{"test":"node --test tests/*.test.js","verify":"node scripts/verify.mjs","build":"npm run test && npm run verify"},"engines":{"node":">=20"}}

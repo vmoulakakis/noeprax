@@ -1,0 +1,2 @@
+import {selectModel} from '../lib/policy.js';
+export default function handler(req,res){if(!process.env.SUPABASE_SERVICE_ROLE_KEY){return res.status(503).json({error:'paid_runtime_not_configured',detail:'Server-side entitlement verification is required before paid model calls are enabled.'})}const model=selectModel({entitlement:'paid',complexity:Number(req.query?.complexity||2),sensitive:false});return res.status(200).json({configured:true,candidateModel:model.id,note:'Model execution remains disabled in this MVP until subscription verification is wired.'})}
