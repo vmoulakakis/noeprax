@@ -34,7 +34,7 @@ const inject = (file, marker, html) => {
   writeFileSync(target, data);
 };
 
-inject('login.html', '/assets/noeprax-auth.js', '<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script defer src="/assets/noeprax-auth.js"></script>');
+inject('login.html', '/assets/noeprax-auth.js', '<script defer src="/assets/login-ui.js"></script><script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script defer src="/assets/noeprax-auth.js"></script>');
 inject('report.html', '/assets/report-account.js', '<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script defer src="/assets/report-account.js"></script>');
 
 console.log(`BUILD GREEN: NOEPRAX v3 emitted ${Object.keys(files).length} audited files plus runtime overlays. SHA256 ${digest}`);
