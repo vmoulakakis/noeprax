@@ -98,7 +98,7 @@ const premiumLink = '<link rel="stylesheet" href="' + premiumStylesheet + '" dat
 let publishedHome = readFileSync(indexPath, 'utf8');
 if (!publishedHome.includes(premiumLink)) {
   if (!publishedHome.includes('</head>')) throw new Error('V3 head tag missing; cannot safely inject design layer');
-  publishedHome = publishedHome.replace('</head>', premiumLink + '\\n</head>');
+  publishedHome = publishedHome.replace('</head>', premiumLink + '\n</head>');
   writeFileSync(indexPath, publishedHome);
 }
 
