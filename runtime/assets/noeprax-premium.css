@@ -120,6 +120,43 @@ body { font-kerning: normal; text-rendering: optimizeLegibility; }
   .hero .hero-visual::after { display:none; }
   .router-grid .router-card { border-radius: 10px; }
 }
+@media(max-width:640px) {
+  /* Avoid decorative desktop overlaps hiding real explanatory content on phones. */
+  .hero .hero-visual {
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    align-items:stretch;
+    gap:14px;
+    height:auto!important;
+    min-height:0!important;
+    padding:0;
+    isolation:auto;
+  }
+  .hero .hero-visual .pain-card,
+  .hero .hero-visual .gain-card {
+    position:relative!important;
+    inset:auto!important;
+    top:auto!important;
+    left:auto!important;
+    right:auto!important;
+    bottom:auto!important;
+    width:100%!important;
+    max-width:100%!important;
+    height:auto!important;
+    margin:0!important;
+    transform:none!important;
+    box-sizing:border-box;
+    z-index:auto!important;
+  }
+  .hero .hero-visual .float-chip {
+    position:static!important;
+    inset:auto!important;
+    transform:none!important;
+    max-width:100%;
+    justify-self:start;
+  }
+  .hero .hero-visual .flow-svg { display:none; }
+}
 @media(max-width:390px) {
   /* The V3 header previously overflowed 320px by 43px: release DOM nav-actions. */
   .nav-actions { min-width:0; flex:0 1 auto; max-width:45%; }
