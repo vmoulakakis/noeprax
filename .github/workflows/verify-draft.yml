@@ -1,0 +1,50 @@
+name: Verify NOEPRAX draft changes (no deploy)
+on:
+  pull_request:
+    paths:
+      - 'styles.css'
+      - 'DESIGN.md'
+      - 'tests/**'
+      - 'scripts/**'
+      - 'runtime/**'
+      - 'release/**'
+      - '.github/workflows/verify-draft.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    name: Unit tests, source verification, release output
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exact pull-request code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Verify Node runtime
+        run: |
+          node --version
+          node -e 'if(Number(process.versions.node.split(".")[0]) < 20) process.exit(1)'
+      - name: Run regression tests
+        run: npm test
+      - name: Verify source contracts
+        run: npm run verify
+      - name: Build actual V3 release (no deploy)
+        run: npm run build
+      - name: Verify generated release behavior and founder links
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          const html = fs.readFileSync('public/index.html','utf8');
+          const assert = (b,msg) => {if (!b) throw new Error(msg)};
+          assert(html.includes('<main') && html.includes('</main>'),'generated index missing main');
+          assert(html.includes('noeprax-founder-synergy'),'founder section missing after v3 generation');
+          assert(html.includes('https://ai-hub.vmoulakakis.chatgpt.site/'),'AI Space link missing');
+          assert(html.includes('https://e-vassilios-moulakakis.blogspot.com/'),'Blogger link missing');
+          assert(fs.existsSync('public/login.html'),'login missing');
+          assert(fs.existsSync('public/report.html'),'report missing');
+          console.log('Generated V3 shell and founder links verified; visual/browser QA pending.');
+          JS
