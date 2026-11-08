@@ -34,6 +34,17 @@ jobs:
         run: npm run verify
       - name: Build actual V3 release (no deploy)
         run: npm run build
+      - name: Inspect V3 generated HTML selector inventory for release-aware design
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          const html=fs.readFileSync('public/index.html','utf8');
+          const cls=[...new Set([...html.matchAll(/class=["']([^"']+)["']/g)].flatMap(x=>x[1].split(/\\s+/)).filter(Boolean))];
+          const ids=[...new Set([...html.matchAll(/id=["']([^"']+)["']/g)].map(x=>x[1]))];
+          console.log('V3_SELECTOR_CLASSES='+JSON.stringify(cls.slice(0,160)));
+          console.log('V3_SELECTOR_IDS='+JSON.stringify(ids.slice(0,100)));
+          console.log('V3_STYLESHEETS='+JSON.stringify([...html.matchAll(/<link[^>]+rel=["']stylesheet["'][^>]+>/g)].map(x=>x[0]).slice(0,12)));
+          JS
       - name: Verify generated release behavior and founder links
         run: |
           node --input-type=module <<'JS'
