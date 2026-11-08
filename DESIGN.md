@@ -51,7 +51,7 @@ omitted:
 
 **Anti-references:** Do not clone third-party themes, repeat generic neon gradients, present fake agent activity as live telemetry, imply providers/actions are integrated when they are only previews, or use animation as evidence of technical capability.
 
-**Source of truth:** This file documents semantic decisions; the first `:root` in `styles.css` remains the runtime owner of existing global color, typography-scale and layout variables. The added premium CSS is a component-focused layer in that same file; do not create competing token packages.
+**Source of truth:** V3 is compiled from the pinned `release/v3` archive into `public/`. Its generated `/assets/site.css` retains ownership of layout and component rules; the new `runtime/assets/noeprax-premium.css` is an optional, reversible visual enhancement linked by `scripts/build.mjs` after archive extraction. The legacy root `styles.css` remains unchanged and is **not** assumed to style the published V3.
 
 ## Colors
 
@@ -72,7 +72,7 @@ omitted:
 ## Layout
 
 - Marketing home: hero copy plus operating-system diagram, then distinct navigation to free diagnostic, services, calculators, pricing, governance and founder perspective.
-- Canonical content width: existing `--shell:min(1180px,calc(100vw - 40px))` with existing mobile overrides.
+- Do not alter the V3 generated shell widths and breakpoint model. The new overlay adjusts only existing V3 hero, router, process, trust and pricing component presentation.
 - Visual rhythm: generous hero, dense and useful operational map, dark signal strip, quiet light utility sections, then controlled dark service sequence.
 - Responsive review widths: 320, 390, 768, 960 and 1440 CSS pixels. Header and CTA must remain accessible when primary navigation hides.
 - Do not hide document scrolling or make long forms overflow their parents. Prevent horizontal scrolling caused by diagram indentation, wide labels, and score/result panels.
@@ -89,7 +89,7 @@ Action and diagram controls use tighter corners (9–12 px); the contained data 
 
 - **Header:** sticky, stable geometry, real anchors preserved, EN/EL toggle, keyboard focus.
 - **Hero:** message + deterministic product value + controls to Navigator and Calculators. Never replace these URLs with demo routes.
-- **Operating map:** concrete sequence of business, workflow, agent, tools and guardrail metrics. Currently illustrative, not proof of actual live monitoring.
+- **Operating map:** the actual V3 includes `hero-visual`, `flow-svg`, decision cards, and process stages; their visual language is clarified without claiming any diagram is real live telemetry.
 - **Signal strip:** factual model policy/value statements only. Do not fabricate customers, outcomes, integrations or uptime.
 - **Navigator / calculators:** preserve all IDs, `data-i18n` keys, business calculations, form destinations, error/results behavior and free-first token policy.
 - **Pricing:** preserve existing pilot disclaimers and price semantics until independently verified. No false urgency or fake social proof.
@@ -105,4 +105,4 @@ Action and diagram controls use tighter corners (9–12 px); the contained data 
 
 ## Delivery Record — 2026-11-08
 
-The first-stage implementation changes only `styles.css` visual rules and adds this `DESIGN.md`; existing HTML, JavaScript and API endpoints remain untouched. Static source checks are not equivalent to browser/interaction tests. A reviewer must run `npm test && npm run verify && npm run build` and visually inspect 320/390/768/1440 px plus EL/EN and reduced motion before approving a deployment.
+**Release-aware implementation:** `runtime/assets/noeprax-premium.css` is added as a separate versionable asset. `scripts/build.mjs` appends a single `<link>` after the archived V3 stylesheet; its archive checksum and authored customer content are unchanged. `styles.css`, `index.html`, `app.js`, the API and every login/report asset remain untouched. The generated V3 home must be checked in CI for successful insertion and intact key links; independent browser visual/interactions tests at 320/390/768/1440 px with EN/EL are still required before production approval.
