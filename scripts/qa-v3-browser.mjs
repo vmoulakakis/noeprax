@@ -62,6 +62,23 @@ try {
       await page.screenshot({path:'noeprax-v3-'+width+'-overflow.png',fullPage:true});
     }
     assert.ok(data.overflow<=2,'Horizontal overflow '+data.overflow+'px at '+width+'px');
+    if (width <= 390) {
+      const cards=await page.evaluate(()=>{
+        const rect=selector=>{
+          const node=document.querySelector(selector);
+          if(!node)return null;
+          const b=node.getBoundingClientRect();
+          return {top:b.top,bottom:b.bottom,left:b.left,right:b.right,width:b.width};
+        };
+        return {
+          pain:rect('.hero-visual .pain-card'),
+          gain:rect('.hero-visual .gain-card')
+        };
+      });
+      assert.ok(cards.pain && cards.gain,'Marketing hero information cards missing');
+      const separate=cards.pain.bottom+4<=cards.gain.top || cards.gain.bottom+4<=cards.pain.top;
+      assert.ok(separate,'Marketing cards overlap on phone at '+width+'px: '+JSON.stringify(cards));
+    }
     const buttons=await page.locator('a[href],button').count();
     assert.ok(buttons>=3,'Missing interactive elements');
     if(width===390||width===1440)await page.screenshot({path:'noeprax-v3-'+width+'.png',fullPage:true});
