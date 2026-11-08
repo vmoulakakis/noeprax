@@ -57,5 +57,10 @@ jobs:
           assert(html.includes('https://e-vassilios-moulakakis.blogspot.com/'),'Blogger link missing');
           assert(fs.existsSync('public/login.html'),'login missing');
           assert(fs.existsSync('public/report.html'),'report missing');
+          assert(fs.existsSync('public/assets/noeprax-premium.css'),'premium CSS overlay missing');
+          assert(html.includes('href="/assets/noeprax-premium.css"'),'premium stylesheet not in actual release HTML');
+          assert(html.indexOf('href="/assets/site.css"') < html.indexOf('href="/assets/noeprax-premium.css"'),'premium overlay must load after V3 base CSS');
+          const overlay=fs.readFileSync('public/assets/noeprax-premium.css','utf8');
+          assert(overlay.includes('.router-grid .router-card'),'premium V3 selectors missing');
           console.log('Generated V3 shell and founder links verified; visual/browser QA pending.');
           JS
