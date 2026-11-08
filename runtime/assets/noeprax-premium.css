@@ -121,6 +121,19 @@ body { font-kerning: normal; text-rendering: optimizeLegibility; }
   .router-grid .router-card { border-radius: 10px; }
 }
 @media(max-width:390px) {
+  /* The V3 header previously overflowed 320px by 43px: release DOM nav-actions. */
+  .nav-actions { min-width:0; flex:0 1 auto; max-width:45%; }
+  .nav-actions .btn {
+    min-width:0;
+    max-width:100%;
+    min-height:46px;
+    padding:8px 9px;
+    font-size:.73rem;
+    line-height:1.2;
+    white-space:normal;
+    overflow-wrap:anywhere;
+    text-align:center;
+  }
   .hero .display { font-size:clamp(2.25rem,11vw,3.5rem); }
   .hero .cta-row .btn { max-width:100%;min-height:46px; }
   .hero .pain-card,.hero .gain-card { max-width:100%; }
