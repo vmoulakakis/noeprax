@@ -51,6 +51,16 @@ try {
     assert.ok(data.mainText>500,'Main marketing content disappeared');
     assert.ok(data.cta>=2,'Primary call-to-action links missing');
     assert.ok(data.founder,'Founder cross-link missing');
+    if (data.overflow>2) {
+      const leaking=await page.evaluate(()=>{
+        return [...document.querySelectorAll('body *')].map(el=>{
+          const r=el.getBoundingClientRect();
+          return {tag:el.tagName,cls:String(el.className?.baseVal||el.className||'').slice(0,65),right:Math.round(r.right),left:Math.round(r.left),width:Math.round(r.width),position:getComputedStyle(el).position};
+        }).filter(x=>x.right>innerWidth+2||x.left< -2).sort((a,b)=>b.right-a.right).slice(0,18);
+      });
+      console.log('V3_OVERFLOW_ELEMENTS='+JSON.stringify({width,leaking}));
+      await page.screenshot({path:'noeprax-v3-'+width+'-overflow.png',fullPage:true});
+    }
     assert.ok(data.overflow<=2,'Horizontal overflow '+data.overflow+'px at '+width+'px');
     const buttons=await page.locator('a[href],button').count();
     assert.ok(buttons>=3,'Missing interactive elements');
