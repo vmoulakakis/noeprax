@@ -1,0 +1,189 @@
+/* NOEPRAX Premium Blueprint — release-aware visual layer, 2026-11-08.
+   Applies to the actual V3 /assets/site.css DOM after its existing stylesheet.
+   Pure CSS: zero changes to click handlers, models, forms, links, auth or billing.
+   Remove the link from the V3 build to roll back instantly. */
+:root {
+  --np-blueprint-ink: #07172d;
+  --np-blueprint-action: #0868f7;
+  --np-blueprint-rule: #c3d4e8;
+  --np-blueprint-cyan: #4fc9ec;
+  --np-blueprint-muted: #526781;
+  --np-blueprint-paper: #f7faff;
+}
+html { scroll-padding-top: 78px; }
+body { font-kerning: normal; text-rendering: optimizeLegibility; }
+:where(a,button,input,select,textarea):focus-visible {
+  outline: 3px solid #126eef;
+  outline-offset: 3px;
+}
+.hero.grid-bg {
+  isolation: isolate;
+  background-color: var(--np-blueprint-paper);
+  background-image:
+    linear-gradient(90deg,rgba(7,23,45,.055) 1px,transparent 1px),
+    linear-gradient(0deg,rgba(7,23,45,.055) 1px,transparent 1px),
+    radial-gradient(ellipse at 85% 20%,rgba(79,201,236,.16),transparent 44%),
+    linear-gradient(135deg,#fff 8%,#eff6ff 100%);
+  background-size: 46px 46px,46px 46px,auto,auto;
+}
+.hero .eyebrow, .section .eyebrow, .value-band .eyebrow {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .13em;
+}
+.hero .display {
+  font-family: "Aptos Display","Segoe UI",system-ui,sans-serif;
+  font-weight: 820;
+  letter-spacing: -.063em;
+  line-height: 1.01;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+.hero .lede {
+  line-height: 1.67;
+  max-width: 60ch;
+}
+.hero .cta-row { gap: 12px; }
+.hero .hero-proof { line-height: 1.6; }
+.hero .hero-visual { position: relative; isolation:isolate; }
+.hero .hero-visual::after {
+  content: "";
+  position:absolute;
+  inset: auto 8% -14px 8%;
+  border-bottom: 2px solid rgba(8,104,247,.20);
+  pointer-events: none;
+}
+.hero .pain-card, .hero .gain-card {
+  border: 1px solid rgba(118,154,190,.55);
+  box-shadow: 0 20px 48px rgba(7,23,45,.11);
+}
+.hero .pain-option { border-radius: 7px; }
+.hero .gain-number { font-variant-numeric: tabular-nums; }
+.section .section-head .h2, .section .h2 {
+  font-family: "Aptos Display","Segoe UI",system-ui,sans-serif;
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+.router-grid { gap: clamp(14px,2vw,26px); }
+.router-grid .router-card {
+  position:relative;
+  border-radius: 12px;
+  border: 1px solid var(--np-blueprint-rule);
+  box-shadow: 0 12px 28px rgba(7,23,45,.06);
+  transition: box-shadow .18s ease,border-color .18s ease,transform .18s ease;
+}
+.router-grid .router-card::before {
+  content:"";
+  position:absolute;
+  top:0;left:20px;right:20px;
+  height:3px;
+  background:linear-gradient(90deg,var(--np-blueprint-action),var(--np-blueprint-cyan));
+  border-radius:0 0 3px 3px;
+  pointer-events:none;
+}
+@media(hover:hover){
+  .router-grid .router-card:hover {
+    border-color:#8bbae7;
+    box-shadow:0 18px 42px rgba(7,23,45,.12);
+  }
+}
+.process-stage .process-row {
+  border-inline-start: 3px solid rgba(8,104,247,.3);
+  padding-inline-start: clamp(14px,2vw,24px);
+}
+.process-stage .step-no {
+  color:var(--np-blueprint-action);
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  font-variant-numeric:tabular-nums;
+}
+.chips .chip { border-radius: 7px; }
+.trust-grid .trust-card {
+  border-radius: 11px;
+  border:1px solid rgba(133,161,190,.36);
+}
+.trust-grid .status { font-variant-numeric:tabular-nums; }
+.pricing-grid .plan { position:relative; }
+.pricing-grid .plan.featured {
+  box-shadow:0 16px 44px rgba(7,23,45,.13);
+}
+.cta-row .btn, .pricing-grid .btn {
+  min-height: 46px;
+  box-shadow: none;
+}
+.np-founder .np-founder__aside {
+  border-radius: 13px;
+}
+.np-founder .np-founder__btn { min-height: 48px; }
+@media(max-width:780px) {
+  html { scroll-padding-top: 60px; }
+  .hero.grid-bg { background-size: 36px 36px,36px 36px,auto,auto; }
+  .hero .display { letter-spacing:-.045em;line-height:1.06; }
+  .hero .hero-visual::after { display:none; }
+  .router-grid .router-card { border-radius: 10px; }
+}
+@media(max-width:640px) {
+  /* Avoid decorative desktop overlaps hiding real explanatory content on phones. */
+  .hero .hero-visual {
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    align-items:stretch;
+    gap:14px;
+    height:auto!important;
+    min-height:0!important;
+    padding:0;
+    isolation:auto;
+  }
+  .hero .hero-visual .pain-card,
+  .hero .hero-visual .gain-card {
+    position:relative!important;
+    inset:auto!important;
+    top:auto!important;
+    left:auto!important;
+    right:auto!important;
+    bottom:auto!important;
+    width:100%!important;
+    max-width:100%!important;
+    height:auto!important;
+    margin:0!important;
+    transform:none!important;
+    box-sizing:border-box;
+    z-index:auto!important;
+  }
+  .hero .hero-visual .float-chip {
+    position:static!important;
+    inset:auto!important;
+    transform:none!important;
+    max-width:100%;
+    justify-self:start;
+  }
+  .hero .hero-visual .flow-svg { display:none; }
+}
+@media(max-width:390px) {
+  /* The V3 header previously overflowed 320px by 43px: release DOM nav-actions. */
+  .nav-actions { min-width:0; flex:0 1 auto; max-width:45%; }
+  .nav-actions .btn {
+    min-width:0;
+    max-width:100%;
+    min-height:46px;
+    padding:8px 9px;
+    font-size:.73rem;
+    line-height:1.2;
+    white-space:normal;
+    overflow-wrap:anywhere;
+    text-align:center;
+  }
+  .hero .display { font-size:clamp(2.25rem,11vw,3.5rem); }
+  .hero .cta-row .btn { max-width:100%;min-height:46px; }
+  .hero .pain-card,.hero .gain-card { max-width:100%; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .router-grid .router-card { transition:none; }
+  .router-grid .router-card:hover { transform:none; }
+}
+@media(forced-colors:active){
+  .hero .pain-card,.hero .gain-card,
+  .router-grid .router-card,.trust-grid .trust-card {
+    border:1px solid CanvasText;
+  }
+  .router-grid .router-card::before { display:none; }
+  :where(a,button,input,select,textarea):focus-visible { outline-color:Highlight; }
+}

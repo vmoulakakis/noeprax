@@ -88,4 +88,18 @@ html[lang^="el"] .np-founder .np-copy-en{display:none}
   writeFileSync(indexPath, landing);
 }
 
+// Reviewable, rollback-friendly visual enhancement of the ACTUAL V3 release output.
+// The pinned V3 archive is immutable; runtime assets are already copied above.
+// This injection does not touch routes, JS bundles, API endpoints, forms or user data.
+const premiumStylesheet = '/assets/noeprax-premium.css';
+const premiumFile = join(out, 'assets', 'noeprax-premium.css');
+if (!existsSync(premiumFile)) throw new Error('Premium V3 stylesheet is missing after runtime copy');
+const premiumLink = '<link rel="stylesheet" href="' + premiumStylesheet + '" data-noeprax-premium="v1" />';
+let publishedHome = readFileSync(indexPath, 'utf8');
+if (!publishedHome.includes(premiumLink)) {
+  if (!publishedHome.includes('</head>')) throw new Error('V3 head tag missing; cannot safely inject design layer');
+  publishedHome = publishedHome.replace('</head>', premiumLink + '\n</head>');
+  writeFileSync(indexPath, publishedHome);
+}
+
 console.log(`BUILD GREEN: NOEPRAX v3 emitted ${Object.keys(files).length} audited files plus runtime overlays. SHA256 ${digest}`);
