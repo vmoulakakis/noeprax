@@ -1,0 +1,51 @@
+name: NOEPRAX - Agency Brief Integration
+on:
+  pull_request:
+    paths:
+      - 'api/agency-brief.js'
+      - 'lib/agency-brief.js'
+      - 'runtime/assets/agency-brief-ui.js'
+      - 'templates/agency-brief.html'
+      - 'scripts/build.mjs'
+      - 'tests/agency-brief.test.js'
+      - '.github/workflows/agency-brief-ci.yml'
+  push:
+    paths:
+      - 'api/agency-brief.js'
+      - 'lib/agency-brief.js'
+      - 'runtime/assets/agency-brief-ui.js'
+      - 'templates/agency-brief.html'
+      - 'scripts/build.mjs'
+      - 'tests/agency-brief.test.js'
+      - '.github/workflows/agency-brief-ci.yml'
+permissions:
+  contents: read
+jobs:
+  verify-agency-brief:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Existing NOEPRAX tests
+        run: npm test
+      - name: Existing source verification
+        run: npm run verify
+      - name: Verify new API and UI syntax
+        run: |
+          node --check api/agency-brief.js
+          node --check lib/agency-brief.js
+          node --check runtime/assets/agency-brief-ui.js
+      - name: Build audited v3 bundle + runtime agency brief
+        run: npm run build
+      - name: Check built brief and intact v3 pages
+        run: |
+          test -f public/index.html
+          test -f public/assets/agency-brief-ui.js
+          grep -q 'id="noeprax-agency-brief"' public/index.html
+          grep -q '/assets/agency-brief-ui.js' public/index.html
+          test -f public/report.html

@@ -1,0 +1,34 @@
+
+<style id="noeprax-agency-brief-style">
+.np-brief{background:linear-gradient(145deg,#0b1829,#102e49);color:#f6f9ff;padding:clamp(48px,7vw,84px) 24px}
+.np-brief *{box-sizing:border-box}
+.np-brief__inner{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+.np-brief h2{font-size:clamp(1.75rem,3vw,3rem);line-height:1.1;margin:.3em 0}
+.np-brief p,.np-brief small{color:#c5dae9;line-height:1.6}
+.np-brief label{display:block;margin:12px 0 4px;font-weight:700}
+.np-brief select,.np-brief textarea{width:100%;padding:12px;border:1px solid #8299b0;border-radius:10px;background:#fff;color:#132136;font:inherit}
+.np-brief button{margin-top:14px;background:#c2e4fa;color:#0d2340;padding:12px 18px;border:0;border-radius:10px;font:inherit;font-weight:800;cursor:pointer}
+.np-brief button:focus-visible{outline:3px solid white;outline-offset:2px}
+.np-brief button:disabled{opacity:.55;cursor:progress}
+.np-brief__result{border:1px solid #49647d;border-radius:16px;padding:20px;min-height:180px;background:rgba(255,255,255,.055)}
+.np-brief__result:empty:before{content:'Results / Αποτελέσματα';color:#c5dae9}
+.np-brief .np-copy-el{display:none}html[lang^="el"] .np-brief .np-copy-el{display:initial}html[lang^="el"] .np-brief .np-copy-en{display:none}
+@media(max-width:760px){.np-brief__inner{grid-template-columns:1fr}}
+</style>
+<section id="noeprax-agency-brief" class="np-brief" aria-labelledby="np-agency-brief-title">
+ <div class="np-brief__inner">
+ <div><p class="np-founder__eyebrow">NOEPRAX × MYAGENTICTEAM</p>
+ <h2 id="np-agency-brief-title"><span class="np-copy-en">Turn a business challenge into a delivery brief</span><span class="np-copy-el">Μετατρέψτε μια επιχειρηματική ανάγκη σε σχέδιο υλοποίησης</span></h2>
+ <p class="np-copy-en">Explore the appropriate AI development and marketing team. This creates a free proposal only—it does not contact agents or submit your data to the private Agency OS.</p>
+ <p class="np-copy-el">Δείτε ποια ομάδα AI development και marketing χρειάζεστε. Δημιουργείται μόνο δωρεάν πρόταση—δεν ενεργοποιούνται agents ούτε αποστέλλονται δεδομένα στο ιδιωτικό Agency OS.</p>
+ <form>
+ <label for="np-brief-service"><span class="np-copy-en">Service</span><span class="np-copy-el">Υπηρεσία</span></label>
+ <select id="np-brief-service" name="service" required><option value="launch">Launch — Website / SaaS</option><option value="grow">Grow — SEO / Marketing</option><option value="automate">Automate — AI workflows</option></select>
+ <label for="np-brief-goal"><span class="np-copy-en">What do you need to achieve?</span><span class="np-copy-el">Τι θέλετε να πετύχετε;</span></label>
+ <textarea id="np-brief-goal" name="goal" rows="4" minlength="12" maxlength="1500" required placeholder="Describe the business outcome, not personal data..."></textarea>
+ <small class="np-copy-en">Do not include private customer data, passwords or sensitive information.</small>
+ <small class="np-copy-el">Μην εισάγετε προσωπικά δεδομένα πελατών, κωδικούς ή ευαίσθητα στοιχεία.</small>
+ <button type="submit"><span class="np-copy-en">Generate free agency brief</span><span class="np-copy-el">Δημιουργία δωρεάν brief</span></button>
+ </form></div><div class="np-brief__result" data-brief-result aria-live="polite"></div>
+ </div>
+</section>
