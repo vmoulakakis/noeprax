@@ -88,4 +88,15 @@ html[lang^="el"] .np-founder .np-copy-en{display:none}
   writeFileSync(indexPath, landing);
 }
 
+
+// Optional public Agency Brief module: proposal only, no private mission submission.
+let agencyLanding = readFileSync(indexPath, 'utf8');
+if (!agencyLanding.includes('id="noeprax-agency-brief"')) {
+  const agencySection = readFileSync(join(root, 'templates/agency-brief.html'), 'utf8');
+  if (!/<\/main>/i.test(agencyLanding)) throw new Error('Main closing tag not found for agency brief');
+  agencyLanding = agencyLanding.replace(/<\/main>/i, agencySection + '</main>');
+  writeFileSync(indexPath, agencyLanding);
+}
+inject('index.html', '/assets/agency-brief-ui.js', '<script defer src="/assets/agency-brief-ui.js"></script>');
+
 console.log(`BUILD GREEN: NOEPRAX v3 emitted ${Object.keys(files).length} audited files plus runtime overlays. SHA256 ${digest}`);
